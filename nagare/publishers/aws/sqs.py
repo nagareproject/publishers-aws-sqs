@@ -31,9 +31,9 @@ class Publisher(publisher.Publisher):
         banner = super(Publisher, self).generate_banner()
         return banner + ' on queue `{}`'.format(str(self.queue.name))
 
-    def start_handle_request(self, app, msg):
+    def start_handle_request(self, app, services, msg):
         try:
-            super(Publisher, self).start_handle_request(app, queue=self.queue, msg=msg)
+            super(Publisher, self).start_handle_request(app, services, queue=self.queue, msg=msg)
         except Exception:
             pass
 
@@ -41,6 +41,6 @@ class Publisher(publisher.Publisher):
         self.queue = services_service[queue]
         super(Publisher, self)._serve(app)
 
-        self.queue.start_consuming(partial(self.start_handle_request, app))
+        self.queue.start_consuming(partial(self.start_handle_request, app, services_service))
 
         return 0
