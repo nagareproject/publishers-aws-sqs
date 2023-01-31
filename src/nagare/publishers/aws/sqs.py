@@ -1,5 +1,5 @@
 # --
-# Copyright (c) 2008-2022 Net-ng.
+# Copyright (c) 2008-2023 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -7,7 +7,7 @@
 # this distribution.
 # --
 
-"""The AWS SQS publisher"""
+"""The AWS SQS publisher."""
 
 from functools import partial
 
@@ -15,12 +15,9 @@ from nagare.server import publisher
 
 
 class Publisher(publisher.Publisher):
-    """The AWS SQS publisher"""
+    """The AWS SQS publisher."""
 
-    CONFIG_SPEC = dict(
-        publisher.Publisher.CONFIG_SPEC,
-        queue='string(help="name of the queue to listen to")'
-    )
+    CONFIG_SPEC = dict(publisher.Publisher.CONFIG_SPEC, queue='string(help="name of the queue to listen to")')
     has_multi_threads = True
 
     def __init__(self, name, dist, services_service, **conf):
@@ -35,7 +32,7 @@ class Publisher(publisher.Publisher):
         try:
             super(Publisher, self).start_handle_request(app, services, queue=self.queue, msg=msg)
         except Exception:
-            pass
+            pass  # noqa: S110
 
     def _serve(self, app, queue, services_service, **conf):
         self.queue = services_service[queue]

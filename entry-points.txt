@@ -1,0 +1,2 @@
+[nagare.publishers]
+aws.sqs = nagare.publishers.aws.sqs:Publisher
