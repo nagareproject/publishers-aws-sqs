@@ -1,5 +1,5 @@
 # --
-# Copyright (c) 2008-2023 Net-ng.
+# Copyright (c) 2008-2024 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -31,8 +31,8 @@ class Publisher(publisher.Publisher):
     def start_handle_request(self, app, services, msg):
         try:
             super(Publisher, self).start_handle_request(app, services, queue=self.queue, msg=msg)
-        except Exception:
-            pass  # noqa: S110
+        except Exception:  # noqa: S110
+            pass
 
     def _serve(self, app, queue, services_service, **conf):
         self.queue = services_service[queue]
